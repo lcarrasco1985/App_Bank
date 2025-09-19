@@ -358,7 +358,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return sum + balance;
         }, 0);
         
-        totalBalanceSpan.textContent = formatCurrency(totalBalance, 'USD');
+        //totalBalanceSpan.textContent = formatCurrency(totalBalance, 'USD');
     }
     function getAccountBankName(type){
 		const types = {
