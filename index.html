@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Datos Bancarios</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-piggy-bank"></i> Control de Datos Bancarios</h1>
+        
+        <div class="demo-note">
+            <h3><i class="fas fa-info-circle"></i> Formato Numérico Mejorado</h3>
+            <p>Los campos numéricos ahora tienen formato automático con separadores de miles y decimales.</p>
+        </div>
+        
+        <div class="form-container">
+            <form id="bankForm">
+                <!-- Datos Básicos -->
+                <div class="form-group">
+                    <label for="bankName"><i class="fas fa-university"></i> Banco:</label>
+                    <select id="bankName" required>
+                        <option value="">Seleccione...</option>
+                        <option value="bcp">BCP</option>
+                        <option value="itb">InterBank</option>
+                        <option value="falabella">Banco Falabella</option>
+                        <option value="cmacica">CMAC Ica</option>
+                        <option value="cmacaqp">CMAC Arequipa</option>                        
+                        <option value="coopacesperanza">COOPAC La Esperanza</option>                        
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="accountType"><i class="fas fa-credit-card"></i> Tipo de Cuenta:</label>
+                    <select id="accountType" required>
+                        <option value="">Seleccione...</option>
+                        <option value="ahorro">Cuenta de Ahorro</option>
+                        <option value="plazo_fijo">Cuenta a Plazo Fijo</option>
+                        <option value="inversion">Cuenta de Inversión</option>
+                        <option value="credito">Tarjeta de Crédito</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="accountNumber"><i class="fas fa-hashtag"></i> Número de Cuenta:</label>
+                    <input type="text" id="accountNumber" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="accountHolder"><i class="fas fa-user"></i> Titular:</label>
+                    <input type="text" id="accountHolder" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="openingDate"><i class="fas fa-calendar-alt"></i> Fecha Apertura:</label>
+                    <input type="date" id="openingDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="currency"><i class="fas fa-coins"></i> Moneda:</label>
+                    <select id="currency" required>
+                        <option value="PEN">Soles Peruanos (PEN)</option>                        
+                        <option value="USD">Dólares (USD)</option>
+                        <option value="EUR">Euros (EUR)</option>                        
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="status"><i class="fas fa-info-circle"></i> Estado:</label>
+                    <select id="status" required>
+                        <option value="active">Activa</option>
+                        <option value="inactive">Inactiva</option>
+                        <option value="blocked">Bloqueada</option>
+                        <option value="canceled">Cancelada</option>
+                    </select>
+                </div>
+                
+                <!-- Campos para cuentas de ahorro/corriente -->
+                <div id="savingsFields" class="account-type-fields">
+                    <h3><i class="fas fa-piggy-bank"></i> Datos de Ahorro</h3>
+                    
+                    <div class="form-group">
+                        <label for="balance"><i class="fas fa-money-bill-wave"></i> Saldo Actual:</label>
+                        <input type="text" id="balance" class="number-input" required>
+                        <div class="format-example">Ej: 1,500.50</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="monthlyFee"><i class="fas fa-hand-holding-usd"></i> Mantenimiento Mensual:</label>
+                        <input type="text" id="monthlyFee" class="number-input">
+                        <div class="format-example">Ej: 15.00</div>
+                    </div>
+                </div>
+                
+                <!-- Campos para plazo fijo/inversión -->
+                <div id="fixedTermFields" class="account-type-fields" style="display:none;">
+                    <h3><i class="fas fa-calendar-check"></i> Datos de Plazo Fijo</h3>
+                    
+                    <div class="form-group">
+                        <label for="fixedAmount"><i class="fas fa-money-bill-wave"></i> Monto Invertido:</label>
+                        <input type="text" id="fixedAmount" class="number-input">
+                        <div class="format-example">Ej: 10,000.00</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="interestRate"><i class="fas fa-percentage"></i> Tasa Anual (%):</label>
+                        <input type="text" id="interestRate" class="number-input">
+                        <div class="format-example">Ej: 5.50</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="startDate"><i class="fas fa-calendar-plus"></i> Fecha Inicio:</label>
+                        <input type="date" id="startDate">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="maturityDate"><i class="fas fa-calendar-check"></i> Fecha Vencimiento:</label>
+                        <input type="date" id="maturityDate">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="interestEarned"><i class="fas fa-coins"></i> Intereses Ganados:</label>
+                        <input type="text" id="interestEarned" class="number-input" readonly>
+                    </div>
+                </div>
+                
+                <!-- Campos para inversión -->
+                <div id="investmentFields" class="account-type-fields" style="display:none;">
+                    <h3><i class="fas fa-chart-line"></i> Datos de Inversión</h3>
+                    
+                    <div class="form-group">
+                        <label for="initialInvestment"><i class="fas fa-money-bill-wave"></i> Monto Inicial:</label>
+                        <input type="text" id="initialInvestment" class="number-input">
+                        <div class="format-example">Ej: 25,000.00</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="currentValue"><i class="fas fa-dollar-sign"></i> Valor Actual:</label>
+                        <input type="text" id="currentValue" class="number-input">
+                        <div class="format-example">Ej: 27,350.75</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="riskLevel"><i class="fas fa-exclamation-triangle"></i> Nivel de Riesgo:</label>
+                        <select id="riskLevel">
+                            <option value="low">Bajo</option>
+                            <option value="medium">Medio</option>
+                            <option value="high">Alto</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Guardar Cuenta</button>
+                    <button type="button" id="clearBtn" class="btn btn-secondary"><i class="fas fa-times"></i> Limpiar</button>
+                </div>
+            </form>
+        </div>
+        
+        <div class="search-container">
+            <h2><i class="fas fa-search"></i> Buscar Cuentas</h2>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Buscar por banco, número o titular...">
+                <button id="searchBtn" class="btn btn-primary"><i class="fas fa-search"></i> Buscar</button>
+            </div>
+        </div>
+        
+        <div class="accounts-list">
+            <h2><i class="fas fa-list"></i> Cuentas Registradas</h2>
+            <div class="summary">
+                <div class="summary-item">
+                    <span class="summary-label">Total Cuentas:</span>
+                    <span class="summary-value" id="totalAccounts">0</span>
+                </div>
+                <div class="summary-item">
+                    <!--span class="summary-label">Saldo Total:</span>-->
+                    <!--span class="summary-value" id="totalBalance">S/.0.00</span>-->
+                </div>
+            </div>
+            <table id="accountsTable">
+                <thead>
+                    <tr>
+                        <th>Banco</th>
+                        <th>Tipo</th>
+                        <th>Número</th>
+                        <th>Titular</th>
+                        <th>Saldo</th>
+                        <th>Moneda</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="accountsTableBody">
+                    <!-- Los datos se cargarán dinámicamente con JavaScript -->
+                    <tr>
+                        <td colspan="8" class="no-accounts">No hay cuentas registradas</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Modal para editar -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Editar Cuenta Bancaria</h2>
+            <div id="editFormContainer"></div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
